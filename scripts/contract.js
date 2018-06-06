@@ -36,8 +36,17 @@ var contract = function(){
 
     var APIURL = "https://api.etherscan.io/api";
 
+	var now = new Date() / 1000;
+
+    var brainGain = {
+        Start: 1528082179,
+	    End: 1529669779,
+        Perc: ((now - 1528082179) / (1529669779 - 1528082179)) * 100
+    }; // Block 5728592
+
+
     var fund = {value: undefined, method: "b60d4288", updated: undefined};
-    var plot = {value: 0, method: "da178cb0", updated: undefined};
+    var plot = {value: 1, method: "da178cb0", updated: undefined};
     var eta = {value: undefined, method: "f7992d85", requiresStage: true, updated: undefined};
     var plotTotal = {value: undefined, method: "b5d1dbe4", requiresStage: true, updated: undefined};
 
@@ -66,6 +75,36 @@ var contract = function(){
         });
     };
 
+
+    var getETA = function(){
+	    getData(eta, function() {
+	        console.log(eta.value)
+        })
+    };
+
+
+	function timeDifference(current, previous) {
+		var msPerMinute = 60;
+		var msPerHour = msPerMinute * 60;
+		var msPerDay = msPerHour * 24;
+		var msPerMonth = msPerDay * 30;
+		var msPerYear = msPerDay * 365;
+
+		var elapsed = current - previous;
+
+		if (elapsed < msPerMinute) {
+			jQuery(".showIncrement").html( Math.round(elapsed));
+			jQuery(".showIncp2").html('seconds');
+		} else if (elapsed < msPerHour) {
+			jQuery(".showIncrement").html( Math.round(elapsed/msPerMinute));
+			jQuery(".showIncp2").html('minutes');
+		} else {
+			jQuery(".showIncrement").html( Math.round(elapsed/msPerHour ));
+			jQuery(".showIncp2").html('hours');
+		}
+	}
+
+
     return {
         data: function(){ return {
             raised: asEth(fund.value).toFixed(2),
@@ -77,25 +116,17 @@ var contract = function(){
         contract: address,
         trent: ttpAddress,
         faythe: fyeAddress,
+	    brainGain: brainGain,
         plotValue: function(p){ return stageValue[p]; },
         update: function(){
-            getData(plotTotal, function () {
-                var dadata = {
-                    ttp: asTTP(plotTotal.value),
-                    eth: asEth(plotTotal.value),
-                    raising: stageValue[plot.value] / 1000,
-                    remaining: stageValue[plot.value] / 1000 - asEth(plotTotal.value),
-                    percent: Math.ceil(( asTTP(plotTotal.value) / stageValue[plot.value]) * 100)
-                };
-                console.log(dadata);
-                jQuery(".showEth").attr("data-eth", Math.floor(dadata.remaining));
-                jQuery(".barPerc").attr("style", "width:" + Math.floor(dadata.percent) + "%;");
-                jQuery(".barPerc .current-percent").html(Math.floor(dadata.percent) + "%")
-            });
+        	timeDifference(brainGain.End, now);
+	        jQuery(".barPerc").attr("style", "width:" + brainGain.Perc + "%;");
+	        jQuery(".barPerc .current-percent").html(Math.floor(brainGain.Perc) + "%")
         }
     }
 }();
 
 //contract.start();
+
 
 

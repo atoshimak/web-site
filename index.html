@@ -21,6 +21,7 @@
     <link rel='stylesheet' href='css/respond.css' type='text/css' media='all'/>
     <link rel='stylesheet' href='css/font-awesome/fontawesome-all.min.css' type='text/css' media='all'/>
     <link rel='stylesheet' href='css/background.css' type='text/css' media='all'/>
+    <link rel="stylesheet" href="css/flipclock.css">
     <script> var siteUrl = ''; </script>
 </head>
 <body class="home page page-template-page-reviews ajax-on">
@@ -38,12 +39,15 @@
             position: relative;
             width: 100%;
         }
+
+        .flip-clock-label { color: #fff !important;}
     </style>
     <div id="pageContent" class="entry center-page page-page" style="overflow: visible;">
-        <h1 id="page-title">We are in ICO<span style="display: block;font-weight: bold;line-height: 20px;">BRAIN GAIN</span></h1>
+        <h1 id="page-title"><big>We are in ICO</big><span style="display: block;font-weight: bold;line-height: 20px;">BRAIN GAIN</span></h1>
         <h2 class="pricing-header" style="font-size: 0.79em;margin: 0;text-align: right;opacity: 0.75;">
             Rate <b style="color:#fee600;">1 ETH</b> = <b style="color:#5b8fc1;">Proportional TTP</b> Bonus <b style="color:#5b8fc1;">1 FYE</b>
         </h2>
+
         <div class="progress-wrapper" style="margin:0 0 20px 0;">
             <div class="progress">
                 <div class="bar">
@@ -53,6 +57,7 @@
                 </div>
             </div>
         </div>
+        <div class="trent-clock" style="width: 460px;margin: 50px auto;"></div>
         <div class="mainBtns" style="padding-bottom: 10px;">
             <i style="transform:rotate(20deg);" class="fab fa-ethereum"></i>
             <a href="contribute.html">  Contribute <i class="no-mobile">Now</i></a>
@@ -164,7 +169,13 @@
 <script type='text/javascript' src='scripts/spin.js'></script>
 <script type='text/javascript' src='scripts/team.js'></script>
 <script type='text/javascript' src='scripts/contract.js'></script>
+<script type='text/javascript' src="scripts/flipclock.min.js"></script>
 <script type='text/javascript' src='scripts/custom.js?1'></script>
-
+<script>
+	$('.trent-clock').FlipClock((contract.brainGain.End - (new Date() / 1000))  ,{
+// ... your options here
+		//clockFace: 'DailyCounter'
+	}).setCountdown(true);
+</script>
 </body>
 </html>

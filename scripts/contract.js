@@ -102,7 +102,26 @@ var contract = function(){
 			jQuery(".showIncrement").html( Math.round(elapsed/msPerHour ));
 			jQuery(".showIncp2").html('hours');
 		}
+
+        var Start = eta.value - (21 * 60 * 60);
+        var Perc = ((now - Start) / (21 * 60 * 60)) * 100;
+        jQuery(".barPerc").attr("style", "width:" + Perc + "%;");
+        jQuery(".barPerc .current-percent").html(Math.floor(Perc) + "%")
 	}
+
+
+    var updatePlot = function(){getData(plot, function() {$(".streekingNumber").html(("000" + (plot.value-1)).slice(-3));});}
+
+    var updateETA = function(){
+        getData(eta, function() {
+                timeDifference(eta.value, now);
+        });
+    };
+
+    var init = function(){
+        updatePlot();
+        updateETA();
+    };
 
 
     return {
@@ -119,9 +138,8 @@ var contract = function(){
 	    brainGain: brainGain,
         plotValue: function(p){ return stageValue[p]; },
         update: function(){
-        	timeDifference(brainGain.End, now);
-	        jQuery(".barPerc").attr("style", "width:" + brainGain.Perc + "%;");
-	        jQuery(".barPerc .current-percent").html(Math.floor(brainGain.Perc) + "%")
+            init();
+           
         }
     }
 }();

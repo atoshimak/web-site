@@ -2833,7 +2833,7 @@ input[type="submit"]:hover {
 }
 
 .progress > .bar:after {
-	content: "441 HOURS";
+	content: "21 HOURS";
 	position: absolute;
 	right: 3px;
 	bottom: 0;

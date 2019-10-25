@@ -560,7 +560,8 @@ a:hover, a:focus, a:active { color: #de6288; }
 .io-lungwort p { color: #a89ffe; }
 .io-lungwort p.lead { color: #d1ccff; }
 .io-lungwort .section-bg { background: #3e2bc5; }
-.io-lungwort .section-bg .btn-outline:after { background: #3e2bc5; }
+.io-lungwort .section-bg .btn-outline:after {/* background: #3e2bc5; */}
+
 .io-lungwort .section-bg-alt { background: #261986; }
 .io-lungwort .section-bg-alt .btn-outline:after { background: #261986; }
 .io-lungwort .section-bg-dark { background: #3221ad; }
